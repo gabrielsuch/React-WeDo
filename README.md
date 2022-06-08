@@ -2,4 +2,4 @@ Atividade realizada em grupo, onde seu objetivo é ter sua função similar com 
 
 Pode demorar ao realizar um cadastro, pois está se conectando pela primeira vez na API.
 
-Quer ver como ficou a página? Acesse o seguinte link: https://we-do.vercel.app/
+Link da página: https://we-do.vercel.app/
