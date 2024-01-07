@@ -3,8 +3,8 @@ import {toast} from "react-toastify"
 
 import {api} from "../../services/api"
 
-import {useAuth} from "../Auth"
-import {useGroup} from "../Groups"
+import {useAuth} from "../Auth/index"
+import {useGroup} from "../Groups/index"
 
 
 interface ChildrenProps {
