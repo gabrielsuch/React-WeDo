@@ -1,24 +1,34 @@
-import { AuthProvider } from './Auth';
-import { HabitsProvider } from './Habits';
-import { GroupProvider } from './Groups';
-import { UserProvider } from './User';
-import { ActivitiesProvider } from './Activities';
-import { GoalsProvider } from './Goals';
+import {ReactNode} from "react"
 
-const Providers = ({ children }) => {
-  return (
-    <AuthProvider>
-      <HabitsProvider>
-        <GroupProvider>
-          <ActivitiesProvider>
-            <UserProvider>
-              <GoalsProvider>{children}</GoalsProvider>
-            </UserProvider>
-          </ActivitiesProvider>
-        </GroupProvider>
-      </HabitsProvider>
-    </AuthProvider>
-  );
-};
+import {AuthProvider} from "./Auth/index"
+import {HabitsProvider} from "./Habits/index"
+import {GroupProvider} from "./Groups/index"
+import {UserProvider} from "./User/index"
+import {ActivitiesProvider} from "./Activities/index"
+import {GoalsProvider} from "./Goals/index"
 
-export default Providers;
+
+interface ChildrenProps {
+    children: ReactNode
+}
+
+
+const Providers = ({children}: ChildrenProps) => {
+    return (
+        <AuthProvider>
+            <HabitsProvider>
+                <GroupProvider>
+                    <ActivitiesProvider>
+                        <UserProvider>
+                            <GoalsProvider>
+                                {children}
+                            </GoalsProvider>
+                        </UserProvider>
+                    </ActivitiesProvider>
+                </GroupProvider>
+            </HabitsProvider>
+        </AuthProvider>
+    )
+}
+
+export default Providers

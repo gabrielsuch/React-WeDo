@@ -1,52 +1,71 @@
-import { createContext, useContext, useState } from 'react';
-import { toast } from 'react-toastify';
+import {createContext, useContext, useState, ReactNode} from "react"
+import {toast} from "react-toastify"
 
-import api from '../../services/api';
-import { useAuth } from '../Auth';
+import {AxiosError} from "axios"
+import {api} from "../../services/api"
 
-const UserContext = createContext();
+import {useAuth} from "../Auth/index"
 
-const useUser = () => useContext(UserContext);
 
-const UserProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState({});
+interface ChildrenProps {
+    children: ReactNode
+}
 
-  const { user, access } = useAuth();
+interface ContextData {
+    userInfo: {}
+    getUserInfo: () => Promise<void>
+    handleUserEdit: (data: any, toggleEdit: any) => Promise<void>
+}
 
-  const getUserInfo = () => {
-    api
-      .get(`/users/${user.user_id}/`)
-      .then((response) => setUserInfo(response.data))
-      .catch((err) => console.log(err));
-  };
 
-  const handleUserEdit = (data, toggleEdit) => {
-    api
-      .patch(`/users/${user.user_id}/`, data, {
-        headers: { Authorization: `Bearer ${access}` },
-      })
-      .then((response) => {
-        toast.success('Perfil atualizado!');
-        toggleEdit();
-      })
-      .catch((err) => {
-        const { username } = err.response.data;
-        console.log(username);
-        if (!!username) {
-          toast.error(
-            'Um usuário com esse username já existe! Por favor, escolha outro!'
-          );
-        } else {
-          toast.error('Não foi possível atualizar o perfil');
+const UserContext = createContext({} as ContextData)
+
+export const UserProvider = ({children}: ChildrenProps) => {
+    const [userInfo, setUserInfo] = useState({})
+
+    const {user, access} = useAuth()
+
+    const getUserInfo = async (): Promise<void> => {
+        try {
+            const response = await api.get(`/users/${user.user_id}/`)
+
+            setUserInfo(response.data)
+            
+        } catch(err) {
+            console.error(err)
         }
-      });
-  };
+    }
 
-  return (
-    <UserContext.Provider value={{ userInfo, getUserInfo, handleUserEdit }}>
-      {children}
-    </UserContext.Provider>
-  );
-};
+    const handleUserEdit = async (data: any, toggleEdit: any): Promise<void> => {
+        try {
+            await api.patch(`/users/${user.user_id}/`, data, {
+                headers: { 
+                    Authorization: `Bearer ${access}` 
+                }
+            })
 
-export { useUser, UserProvider };
+            toggleEdit()
+
+            toast.success("Perfil atualizado!")
+
+        } catch(err) {
+            console.error(err)
+
+            const { username } = err.response.data
+
+            if(!!username) {
+                toast.error("Um usuário com esse username já existe! Por favor, escolha outro!")
+            } else {
+                toast.error("Não foi possível atualizar o perfil")
+            }
+        }
+    }
+
+    return (
+        <UserContext.Provider value={{userInfo, getUserInfo, handleUserEdit}}>
+        {children}
+        </UserContext.Provider>
+    )
+}
+
+export const useUser = () => useContext(UserContext)
