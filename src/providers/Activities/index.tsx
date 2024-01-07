@@ -1,14 +1,12 @@
-import React, { createContext, useContext, ReactNode, useState } from 'react';
-import { toast } from 'react-toastify';
+import React, {createContext, useContext, ReactNode, useState} from "react"
+import {toast} from "react-toastify"
 
-import {api} from '../../services/api';
-import { useAuth } from '../Auth';
-import { useGroup } from '../Groups';
+import {api} from "../../services/api"
 
-import {
-  formattedDate,
-  requisitionDate,
-} from '../../components/Input/Utility/formatter';
+import {useAuth} from "../Auth/index"
+import {useGroup} from "../Groups/index"
+
+import {formattedDate, requisitionDate} from "../../components/Input/Utility/formatter"
 
 interface ChildrenProps {
     children: ReactNode
@@ -25,19 +23,17 @@ interface ContextData {
 }
 
 
-const ActivitiesContext = createContext({} as ContextData);
+const ActivitiesContext = createContext({} as ContextData)
 
-const useActivities = () => useContext(ActivitiesContext);
+export const ActivitiesProvider = ({children}: ChildrenProps) => {
+  const [activities, setActivities] = useState<any[]>([])
 
-const ActivitiesProvider = ({children}: ChildrenProps) => {
-  const [activities, setActivities] = useState<any[]>([]);
-
-  const { specifiGroup } = useGroup();
-  const { access } = useAuth();
+  const { specifiGroup } = useGroup()
+  const { access } = useAuth()
   
-  const groupId = specifiGroup.id;
+  const groupId = specifiGroup.id
 
-  const loadActivities = async () => {
+  const loadActivities = async (): Promise<void> => {
     try {
         const response = await api.get(`activities/?group=${groupId}`)
 
@@ -49,14 +45,14 @@ const ActivitiesProvider = ({children}: ChildrenProps) => {
   }
 
   const addActivity = async (data: any, groupId: any): Promise<void> => {
-    data.group = groupId;
+    data.group = groupId
 
-    const { realization_time } = data;
+    const { realization_time } = data
 
-    const newDate = requisitionDate(realization_time);
-    data.realization_time = newDate;
+    const newDate = requisitionDate(realization_time)
+    data.realization_time = newDate
 
-    formattedDate(new Date(newDate));
+    formattedDate(new Date(newDate))
 
     try {
         const response = await api.post('activities/', data, {
@@ -95,13 +91,13 @@ const ActivitiesProvider = ({children}: ChildrenProps) => {
   }
 
   const updateActivity = async (id: any, data: any, setOpenModalEdit: any): Promise<void> => {
-    const { realization_time } = data;
-    const [day, month, year] = realization_time.split('/');
-    const newDateFormat = `${year}-${month}-${day}`;
-    const newDate = new Date(newDateFormat).toISOString();
-    data.realization_time = newDate;
+    const { realization_time } = data
+    const [day, month, year] = realization_time.split('/')
+    const newDateFormat = `${year}-${month}-${day}`
+    const newDate = new Date(newDateFormat).toISOString()
+    data.realization_time = newDate
 
-    requisitionDate(realization_time);
+    requisitionDate(realization_time)
 
     try {
         await api.patch(`activities/${id}/`, data, {
@@ -118,7 +114,7 @@ const ActivitiesProvider = ({children}: ChildrenProps) => {
         console.error(err)
         toast.error('Erro ao editar atividade')
     }
-  };
+  }
 
   const restoreInfos = async (id: any, reset: any): Promise<void> => {
     try {
@@ -128,35 +124,25 @@ const ActivitiesProvider = ({children}: ChildrenProps) => {
             }
         })
 
-        const { title, realization_time } = response.data;
+        const { title, realization_time } = response.data
 
-        const newDate = formattedDate(new Date(realization_time));
+        const newDate = formattedDate(new Date(realization_time))
 
         reset({
           title: title,
           realization_time: newDate,
-        });
+        })
         
     } catch(err) {
         console.error(err)
     }
-  };
+  }
 
   return (
-    <ActivitiesContext.Provider
-      value={{
-        activities,
-        addActivity,
-        deleteActivity,
-        setActivities,
-        updateActivity,
-        loadActivities,
-        restoreInfos,
-      }}
-    >
-      {children}
+    <ActivitiesContext.Provider value={{activities, addActivity, deleteActivity, setActivities, updateActivity, loadActivities, restoreInfos}}>
+        {children}
     </ActivitiesContext.Provider>
-  );
-};
+  )
+}
 
-export { useActivities, ActivitiesProvider };
+export const useActivities = () => useContext(ActivitiesContext)

@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router';
 
-import api from '../../services/api';
+import {api} from '../../services/api';
 
 export const AuthContext = createContext({});
 
