@@ -1,7 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, ReactNode, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import api from '../../services/api';
+import {api} from '../../services/api';
 import { useAuth } from '../Auth';
 import { useGroup } from '../Groups';
 
@@ -10,29 +10,45 @@ import {
   requisitionDate,
 } from '../../components/Input/Utility/formatter';
 
-const ActivitiesContext = createContext();
+interface ChildrenProps {
+    children: ReactNode
+}
+
+interface ContextData {
+    activities: any[]
+    loadActivities: () => Promise<void>
+    addActivity: (data: any, groupId: any) => Promise<void>
+    deleteActivity: (id: any) => Promise<void>
+    updateActivity: (id: any, data: any, setOpenModalEdit: any) => Promise<void>
+    restoreInfos: (id: any, reset: any) => Promise<void>
+    setActivities: React.Dispatch<React.SetStateAction<any[]>>
+}
+
+
+const ActivitiesContext = createContext({} as ContextData);
 
 const useActivities = () => useContext(ActivitiesContext);
 
-const ActivitiesProvider = ({ children }) => {
-  const [activities, setActivities] = useState([]);
+const ActivitiesProvider = ({children}: ChildrenProps) => {
+  const [activities, setActivities] = useState<any[]>([]);
 
   const { specifiGroup } = useGroup();
+  const { access } = useAuth();
+  
   const groupId = specifiGroup.id;
 
-  const { access } = useAuth();
+  const loadActivities = async () => {
+    try {
+        const response = await api.get(`activities/?group=${groupId}`)
 
-  const loadActivities = () => {
-    api
-      .get(`activities/?group=${groupId}`)
-      .then((response) => {
-        setActivities(response.data.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const addActivity = (data, groupId) => {
+        setActivities(response.data.results)
+        
+    } catch(err) {
+        console.error(err)
+    }
+  }
+
+  const addActivity = async (data: any, groupId: any): Promise<void> => {
     data.group = groupId;
 
     const { realization_time } = data;
@@ -42,36 +58,43 @@ const ActivitiesProvider = ({ children }) => {
 
     formattedDate(new Date(newDate));
 
-    api
-      .post('activities/', data, {
-        headers: { Authorization: `Bearer ${access}` },
-      })
-      .then((response) => {
-        setActivities([...activities, response.data]);
-        toast.success('Atividade criada!');
-      })
-      .catch((err) => {
-        toast.error('Não foi possível criar a atividade');
-        console.log(err);
-      });
-  };
+    try {
+        const response = await api.post('activities/', data, {
+            headers: { 
+                Authorization: `Bearer ${access}`
+            }
+        })
 
-  const deleteActivity = (id) => {
-    api
-      .delete(`activities/${id}/`, {
-        headers: { Authorization: `Bearer ${access}` },
-      })
-      .then((response) => {
-        toast.success('Atividade excluída!');
-        loadActivities();
-      })
-      .catch((err) => {
-        toast.error('Erro na exclusão da atividade');
-        console.log(err);
-      });
-  };
+        setActivities([...activities, response.data])
 
-  const updateActivity = (id, data, setOpenModalEdit) => {
+        toast.success('Atividade criada!')
+
+    } catch(err) {
+        console.error(err)
+        toast.error('Não foi possível criar a atividade')
+    }
+  }
+
+  const deleteActivity = async (id: any): Promise<void> => {
+    try {
+        await api.delete(`activities/${id}`, {
+            headers: { 
+                Authorization: `Bearer ${access}`
+            }
+        })
+
+        // TROCAR ESSA LOGICA
+        loadActivities()
+
+        toast.success('Atividade excluída!')
+
+    } catch(err) {
+        console.error(err)
+        toast.error('Erro na exclusão da atividade')
+    }
+  }
+
+  const updateActivity = async (id: any, data: any, setOpenModalEdit: any): Promise<void> => {
     const { realization_time } = data;
     const [day, month, year] = realization_time.split('/');
     const newDateFormat = `${year}-${month}-${day}`;
@@ -80,27 +103,31 @@ const ActivitiesProvider = ({ children }) => {
 
     requisitionDate(realization_time);
 
-    api
-      .patch(`activities/${id}/`, data, {
-        headers: { Authorization: `Bearer ${access}` },
-      })
-      .then((response) => {
-        toast.success('Atividade editada com sucesso');
-        loadActivities();
-        setOpenModalEdit(false);
-      })
-      .catch((err) => {
-        toast.error('Erro ao editar atividade');
-        console.log(err);
-      });
+    try {
+        await api.patch(`activities/${id}/`, data, {
+            headers: {
+                Authorization: `Bearer ${access}`
+            }
+        })
+
+        loadActivities()
+        setOpenModalEdit(false)
+        toast.success('Atividade editada com sucesso')
+
+    } catch(err) {
+        console.error(err)
+        toast.error('Erro ao editar atividade')
+    }
   };
 
-  const restoreInfos = (id, reset) => {
-    api
-      .get(`activities/${id}/`, {
-        headers: { Authorization: `Bearer ${access}` },
-      })
-      .then((response) => {
+  const restoreInfos = async (id: any, reset: any): Promise<void> => {
+    try {
+        const response = await api.get(`activities/${id}/`, {
+            headers: {
+                Authorization: `Bearer ${access}` 
+            }
+        })
+
         const { title, realization_time } = response.data;
 
         const newDate = formattedDate(new Date(realization_time));
@@ -109,15 +136,18 @@ const ActivitiesProvider = ({ children }) => {
           title: title,
           realization_time: newDate,
         });
-      });
+        
+    } catch(err) {
+        console.error(err)
+    }
   };
 
   return (
     <ActivitiesContext.Provider
       value={{
+        activities,
         addActivity,
         deleteActivity,
-        activities,
         setActivities,
         updateActivity,
         loadActivities,
