@@ -13,7 +13,7 @@ interface ChildrenProps {
 }
 
 
-const Providers = ({children}: ChildrenProps) => {
+export const Providers = ({children}: ChildrenProps) => {
     return (
         <AuthProvider>
             <HabitsProvider>
@@ -30,5 +30,3 @@ const Providers = ({children}: ChildrenProps) => {
         </AuthProvider>
     )
 }
-
-export default Providers

@@ -9,7 +9,8 @@ import { HeaderMenu } from "../HeaderMenu";
 import profilePicture from "../../assets/Images/Profile/profile-picture.png";
 import { Container } from "./style";
 
-const Header = () => {
+
+export const Header = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openHover, setOpenHover] = useState(false);
   const { userInfo, getUserInfo } = useUser();
@@ -63,5 +64,3 @@ const Header = () => {
     </>
   );
 };
-
-export default Header;

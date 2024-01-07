@@ -1,6 +1,7 @@
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from "styled-components"
 
-const GlobalStyle = createGlobalStyle`
+
+export const GlobalStyle = createGlobalStyle`
 
     :root {
         /* COLORS */
@@ -121,5 +122,3 @@ const GlobalStyle = createGlobalStyle`
         background-color: var(--color-primary-dark);
     }
 `;
-
-export default GlobalStyle;
