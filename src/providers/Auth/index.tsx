@@ -1,65 +1,75 @@
-import { useState, createContext, useContext } from 'react';
-import jwt_decode from 'jwt-decode';
-import { toast } from 'react-toastify';
-import { useHistory } from 'react-router';
+import {useState, createContext, useContext , ReactNode} from "react"
+import jwt_decode from "jwt-decode"
+import {toast} from "react-toastify"
+import {useHistory} from "react-router-dom"
 
-import {api} from '../../services/api';
+import {api} from "../../services/api"
 
-export const AuthContext = createContext({});
 
-const useAuth = () => {
-  const context = useContext(AuthContext);
+interface ChildrenProps {
+    children: ReactNode
+}
 
-  return context;
-};
+interface ContextData {
+    access: string | undefined
+    user: any
+    signIn: (data: any) => Promise<void>
+    signOut: () => void
+}
 
-const AuthProvider = ({ children }) => {
-  const [data, setData] = useState(() => {
-    const access = localStorage.getItem('@WeDo:access');
-    const user = localStorage.getItem('@WeDo:user');
 
-    if (access && user) {
-      return { access, user: JSON.parse(user) };
+export const AuthContext = createContext({} as ContextData)
+
+export const AuthProvider = ({children}: ChildrenProps) => {
+    const [data, setData] = useState(() => {
+        const access = localStorage.getItem("@WeDo:access")
+        const user = localStorage.getItem("@WeDo:user")
+
+        if(access && user) {
+            return { 
+                access, user: JSON.parse(user) 
+            }
+        }
+
+        return {}
+    })
+
+    const history = useHistory()
+
+    const signIn = async (data: any): Promise<void> => {
+        try {
+            const response = await api.post("sessions/", data)
+
+            const {access} = response.data
+
+            const user = jwt_decode(access)
+
+            localStorage.setItem("@WeDo:access", access)
+            localStorage.setItem("@WeDo:user", JSON.stringify(user))
+
+            setData({access, user})
+            history.push("/dashboard")
+
+            toast.success("Login realizado com sucesso!")
+            
+        } catch(err) {
+            console.error(err)
+            toast.error("Email ou senha inválida")
+        }
     }
 
-    return {};
-  });
+    const signOut = (): void => {
+        localStorage.removeItem("@WeDo:token")
+        localStorage.removeItem("@WeDo:user")
 
-  const history = useHistory();
+        setData({})
+    }
 
-  const signIn = (data) => {
-    api
-      .post('sessions/', data)
-      .then((response) => {
-        const { access } = response.data;
+    return (
+        <AuthContext.Provider value={{access: data.access, user: data.user, signIn, signOut}}>
+        {children}
+        </AuthContext.Provider>
+    )
+}
 
-        const user = jwt_decode(access);
-
-        localStorage.setItem('@WeDo:access', access);
-        localStorage.setItem('@WeDo:user', JSON.stringify(user));
-
-        setData({ access, user });
-        history.push('/dashboard');
-
-        toast.success('Login realizado com sucesso!');
-      })
-      .catch((err) => toast.error('Email ou senha inválida'));
-  };
-
-  const signOut = () => {
-    localStorage.removeItem('@WeDo:token');
-    localStorage.removeItem('@WeDo:user');
-
-    setData({});
-  };
-
-  return (
-    <AuthContext.Provider
-      value={{ access: data.access, user: data.user, signIn, signOut }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export { AuthProvider, useAuth };
+export const useAuth = () => useContext(AuthContext)

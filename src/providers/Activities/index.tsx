@@ -55,7 +55,7 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
     formattedDate(new Date(newDate))
 
     try {
-        const response = await api.post('activities/', data, {
+        const response = await api.post("activities/", data, {
             headers: { 
                 Authorization: `Bearer ${access}`
             }
@@ -63,11 +63,11 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
 
         setActivities([...activities, response.data])
 
-        toast.success('Atividade criada!')
+        toast.success("Atividade criada!")
 
     } catch(err) {
         console.error(err)
-        toast.error('Não foi possível criar a atividade')
+        toast.error("Não foi possível criar a atividade")
     }
   }
 
@@ -82,17 +82,17 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
         // TROCAR ESSA LOGICA
         loadActivities()
 
-        toast.success('Atividade excluída!')
+        toast.success("Atividade excluída!")
 
     } catch(err) {
         console.error(err)
-        toast.error('Erro na exclusão da atividade')
+        toast.error("Erro na exclusão da atividade")
     }
   }
 
   const updateActivity = async (id: any, data: any, setOpenModalEdit: any): Promise<void> => {
     const { realization_time } = data
-    const [day, month, year] = realization_time.split('/')
+    const [day, month, year] = realization_time.split("/")
     const newDateFormat = `${year}-${month}-${day}`
     const newDate = new Date(newDateFormat).toISOString()
     data.realization_time = newDate
@@ -108,11 +108,11 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
 
         loadActivities()
         setOpenModalEdit(false)
-        toast.success('Atividade editada com sucesso')
+        toast.success("Atividade editada com sucesso")
 
     } catch(err) {
         console.error(err)
-        toast.error('Erro ao editar atividade')
+        toast.error("Erro ao editar atividade")
     }
   }
 
