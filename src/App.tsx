@@ -1,11 +1,12 @@
-import { Routes } from './routes';
-import { ToastContainer } from 'react-toastify';
+import {Routes} from "./routes";
+import {GlobalStyle} from "./styles/global"
 
-import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from "react-toastify"
 
-import {GlobalStyle} from './styles/global';
+import "react-toastify/dist/ReactToastify.css"
 
-function App() {
+
+const App = () => {
   return (
     <>
       <Routes />
@@ -23,7 +24,7 @@ function App() {
       />
       <ToastContainer />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

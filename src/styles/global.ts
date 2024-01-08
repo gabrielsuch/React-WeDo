@@ -2,7 +2,6 @@ import {createGlobalStyle} from "styled-components"
 
 
 export const GlobalStyle = createGlobalStyle`
-
     :root {
         /* COLORS */
         --color-primary-light: #FFE9D7;
