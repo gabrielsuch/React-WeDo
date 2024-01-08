@@ -1,3 +1,5 @@
+import { Container } from './style';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
@@ -6,13 +8,10 @@ import { useGoals } from '../../providers/Goals';
 import { Button } from '../Button';
 import { Input, InputRadioContainer, InputRadio } from '../Input';
 
-import { goalsAddValidation } from './Validation';
+import {createGoalSchema} from "../../schemas/goal.schema"
 
-import { Container } from './style';
 
 export const GroupGoalsAdd = ({ toggleAdd, groupId }) => {
-  const schema = goalsAddValidation;
-
   const { addGoal } = useGoals();
 
   const {
@@ -20,7 +19,7 @@ export const GroupGoalsAdd = ({ toggleAdd, groupId }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(createGoalSchema),
   });
 
   const handleAddGoal = (data) => {

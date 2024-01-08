@@ -1,25 +1,26 @@
 import { useState } from 'react';
+
+import { Container } from './style';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
-import { useActivities } from '../../providers/Activities';
+import {createActivitySchema} from "../../schemas/activity.schema"
 
 import { Input } from '../Input';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
 
-import { activityAddValidation } from './Validation';
 import { formattedDate } from '../Input/Utility/formatter';
 
-import { Container } from './style';
+import { useActivities } from '../../providers/Activities';
+
 
 export const ActivityAdd = ({ setOpenModal }) => {
   const params = useParams();
 
   const { addActivity } = useActivities();
-
-  const schema = activityAddValidation;
 
   const {
     register,
@@ -27,7 +28,7 @@ export const ActivityAdd = ({ setOpenModal }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(createActivitySchema),
   });
 
   useState(() => {

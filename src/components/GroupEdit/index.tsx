@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
+import { Container } from './style';
+
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import api from "../../services/api";
+import {api} from "../../services/api";
 import { useAuth } from "../../providers/Auth";
 import { useGroup } from "../../providers/Groups";
 
@@ -14,15 +16,13 @@ import { Modal } from "../Modal";
 
 import { groupEditValidation } from './Validation';
 
-import { Container } from './style';
+import {editGroupSchema} from "../../schemas/group.schema"
+
 
 export const GroupEdit = ({ setModal }) => {
   const lastTest = () => {
     setModal(false);
   };
-
-  const schema = groupEditValidation;
-
 
   const {
     register,
@@ -30,7 +30,7 @@ export const GroupEdit = ({ setModal }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(editGroupSchema),
   });
 
   const { access } = useAuth();

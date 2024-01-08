@@ -1,17 +1,18 @@
+import { Container } from './style';
+
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 
-import api from '../../services/api';
+import {api} from '../../services/api';
 import { useAuth } from '../../providers/Auth';
 
 import { Input } from '../Input';
 import { Button } from '../Button';
 import { Modal } from '../Modal';
 
-import { groupsCreateValidation } from './Validation';
+import {createGroupSchema} from "../../schemas/group.schema"
 
-import { Container } from './style';
 
 export const GroupsCreate = ({ setModal }) => {
   const lastTest = () => {
@@ -25,8 +26,8 @@ export const GroupsCreate = ({ setModal }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
-  });
+    resolver: yupResolver(createGroupSchema)
+  })
 
   const { access } = useAuth();
   console.log(access);

@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { Container } from './style';
+
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -7,9 +9,8 @@ import { useGoals } from '../../providers/Goals';
 import { Input, InputRadio, InputRadioContainer } from '../Input';
 import { Button } from '../Button';
 
-import { goalsEditValidation } from './Validation';
+import {editGoalSchema} from "../../schemas/goal.schema"
 
-import { Container } from './style';
 
 export const GroupGoalsEdit = ({
   goalId,
@@ -17,7 +18,6 @@ export const GroupGoalsEdit = ({
   toggleEdit,
   toggleShowDelete,
 }) => {
-  const schema = goalsEditValidation;
 
   const { getGoal, updateGoal } = useGoals();
 
@@ -27,7 +27,7 @@ export const GroupGoalsEdit = ({
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(editGoalSchema)
   });
 
   useEffect(() => {

@@ -8,8 +8,6 @@ import { Modal } from '../Modal';
 import { Input } from '../Input/index';
 import { Button } from '../Button/index';
 
-import { headerProfileValidation } from './Validation';
-
 import {
   Container,
   ContainerModal,
@@ -19,10 +17,11 @@ import {
   FixForm,
 } from './style';
 
+import {editUserSchema} from "../../schemas/user.schema"
+
+
 export const HeaderProfileEdit = ({ toggleEdit }) => {
   const { userInfo, getUserInfo, handleUserEdit } = useUser();
-
-  const schema = headerProfileValidation;
 
   const { username, email } = userInfo;
 
@@ -32,8 +31,8 @@ export const HeaderProfileEdit = ({ toggleEdit }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
-  });
+    resolver: yupResolver(editUserSchema)
+  })
 
   const userEdit = (data) => {
     handleUserEdit(data, toggleEdit);

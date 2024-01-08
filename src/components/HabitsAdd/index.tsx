@@ -1,3 +1,5 @@
+import { Container } from './style';
+
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -6,22 +8,19 @@ import { useHabits } from '../../providers/Habits';
 import { Input, InputRadio, InputRadioContainer } from '../Input';
 import { Button } from '../Button';
 
-import { addValidation } from './Validations';
+import {createHabitSchema} from "../../schemas/habits.schema"
 
-import { Container } from './style';
 
 export const HabitsAdd = ({ toggleAdd }) => {
   const { addHabit } = useHabits();
-
-  const schema = addValidation;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
-  });
+    resolver: yupResolver(createHabitSchema)
+  })
 
   const handleAddHabit = (data) => {
     addHabit(data);

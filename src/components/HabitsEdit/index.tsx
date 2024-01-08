@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { Container } from './style';
+
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -7,14 +9,11 @@ import { useHabits } from '../../providers/Habits';
 import { Input, InputRadio, InputRadioContainer } from '../Input';
 import { Button } from '../Button';
 
-import { editValidation } from './Validations';
+import {editHabitSchema} from "../../schemas/habits.schema"
 
-import { Container } from './style';
 
 export const HabitsEdit = ({ id, showEdit, toggleEdit }) => {
   const { updateHabit, deleteHabit, habitEditInfo } = useHabits();
-
-  const schema = editValidation;
 
   const {
     register,
@@ -22,8 +21,8 @@ export const HabitsEdit = ({ id, showEdit, toggleEdit }) => {
     formState: { errors },
     reset,
   } = useForm({
-    resolver: yupResolver(schema),
-  });
+    resolver: yupResolver(editHabitSchema)
+  })
 
   const handleUpdate = (data) => {
     updateHabit(id, data);

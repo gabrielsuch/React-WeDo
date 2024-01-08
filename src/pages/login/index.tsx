@@ -7,15 +7,15 @@ import { useAuth } from '../../providers/Auth';
 import { Input, InputPassword } from '../../components/Input';
 import { Button } from '../../components/Button';
 
-import { LoginValidation } from './Validation';
-
 import logoLogin from '../../assets/logoLogin.png';
 import flowersLogin from '../../assets/flowersLogin.png';
 import { AlreadyRegistered } from '../signup/style';
 import { Container, Form } from './styles';
 
+import {loginSchema} from "../../schemas/user.schema"
+
+
 export const Login = () => {
-  const schema = LoginValidation;
 
   const history = useHistory();
 
@@ -24,7 +24,7 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
   });
 
   const { signIn } = useAuth();

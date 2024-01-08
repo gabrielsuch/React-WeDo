@@ -3,12 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import api from '../../services/api';
+import {api} from '../../services/api';
 
 import { Input, InputPassword } from '../../components/Input';
 import { Button } from '../../components/Button';
-
-import { signupValidation } from './Validation';
 
 import logoSignup from '../../assets/logoSignup.png';
 import Flowers from '../../assets/Flowers.png';
@@ -23,18 +21,19 @@ import {
   DivFlower,
 } from './style';
 
+import {createUserSchema} from "../../schemas/user.schema"
+
+
 export const Signup = () => {
   const history = useHistory();
-
-  const schema = signupValidation;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
-  });
+    resolver: yupResolver(createUserSchema)
+  })
 
   const sendRegister = (data) => {
     const newData = {
