@@ -16,12 +16,14 @@ import logoSignup from "../../assets/logoSignup.png"
 import Flowers from "../../assets/Flowers.png"
 
 import {createUserSchema} from "../../schemas/user.schema"
+import {TCreateUser} from "../../types/user.type"
 
 
 export const Signup = () => {
+
     const navigate = useNavigate()
 
-    const {register, handleSubmit, formState: { errors }} = useForm({
+    const {register, handleSubmit, formState: { errors }} = useForm<TCreateUser>({
         resolver: yupResolver(createUserSchema)
     })
 
