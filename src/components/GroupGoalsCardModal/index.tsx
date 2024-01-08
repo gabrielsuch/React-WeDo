@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
+import {useEffect} from "react"
 
-import { useGoals } from '../../providers/Goals';
+import {GroupGoalsCard} from "../GroupGoalsCard/index"
 
-import { GroupGoalsCard } from '../GroupGoalsCard';
+import {useGoals} from "../../providers/Goals/index"
 
-export const GroupGoalsCardModal = ({ goalId, groupId }) => {
-  const { getGoal, goal } = useGoals();
 
-  useEffect(() => {
-    getGoal(goalId);
-  }, []);
+export const GroupGoalsCardModal = ({goalId, groupId}: any) => {
+    const {getGoal, goal} = useGoals()
 
-  return (
-    <>
-      <GroupGoalsCard goal={goal} groupId={groupId} open />
-    </>
-  );
-};
+    useEffect(() => {
+        getGoal(goalId)
+    }, [])
+
+    return (
+        <>
+            <GroupGoalsCard goal={goal} groupId={groupId} open/>
+        </>
+    )
+}

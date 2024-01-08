@@ -1,52 +1,54 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from "react"
 
-import { useGroup } from '../../providers/Groups';
+import {Container} from "./style"
 
-import { EmptyCardInfo } from '../EmptyCardInfo';
-import { TitleCounter } from '../GroupContent/Utility';
-import { GroupGoalsCard } from '../GroupGoalsCard';
-import { GroupGoalsAdd } from '../GroupGoalsAdd';
-import { Button } from '../Button';
-import { Modal } from '../Modal';
+import {EmptyCardInfo} from "../EmptyCardInfo/index"
+import {TitleCounter} from "../GroupContent/Utility/index"
+import {GroupGoalsCard} from "../GroupGoalsCard/index"
+import {GroupGoalsAdd} from "../GroupGoalsAdd/index"
+import {Button} from "../Button/index"
+import {Modal} from "../Modal/index"
 
-import { Container } from './style';
+import {useGroup} from "../../providers/Groups"
 
-export const GroupGoals = ({ specifiGroup }) => {
-  const [hasGoals, setHasGoals] = useState(false);
-  const [showAdd, setShowAdd] = useState(false);
 
-  const { checkUserInGroup, isUserInGroup } = useGroup();
-  const { id, goals } = specifiGroup;
+export const GroupGoals = ({specifiGroup}: any) => {
+    const [hasGoals, setHasGoals] = useState<boolean>(false)
+    const [showAdd, setShowAdd] = useState<boolean>(false)
+    
+    const {id, goals} = specifiGroup
 
-  const toggleAdd = () => {
-    setShowAdd(!showAdd);
-  };
+    const {checkUserInGroup, isUserInGroup} = useGroup()
 
-  useEffect(() => {
-    if (goals) {
-      setHasGoals(goals.length > 0);
+    const toggleAdd = () => {
+        setShowAdd(!showAdd)
     }
 
-    checkUserInGroup();
-  }, [goals]);
+    useEffect(() => {
+        if (goals) {
+            setHasGoals(goals.length > 0)
+        }
 
-  return (
-    <>
-      <Container hasGoals={hasGoals}>
-        <main className="goals__container">
-          {hasGoals ? (
-            goals.map((goal) => <GroupGoalsCard key={goal.id} goal={goal} />)
-          ) : (
-            <EmptyCardInfo goals />
-          )}
-        </main>
-        <footer className="goals__container">
-          {hasGoals && <TitleCounter content={goals} name="Meta" />}
-          {isUserInGroup && <Button onClick={toggleAdd}>Adicionar meta</Button>}
-        </footer>
-      </Container>
-      {showAdd && <Modal onClick={toggleAdd} />}
-      {showAdd && <GroupGoalsAdd toggleAdd={toggleAdd} groupId={id} />}
-    </>
-  );
-};
+        checkUserInGroup()
+    }, [goals])
+
+    return (
+        <>
+            <Container hasGoals={hasGoals}>
+                <main className="goals__container">
+                    {hasGoals ? (
+                        goals.map((goal) => <GroupGoalsCard key={goal.id} goal={goal} />)
+                    ) : (
+                        <EmptyCardInfo goals />
+                    )}
+                </main>
+                <footer className="goals__container">
+                    {hasGoals && <TitleCounter content={goals} name="Meta"/>}
+                    {isUserInGroup && <Button onClick={toggleAdd}>Adicionar meta</Button>}
+                </footer>
+            </Container>
+            {showAdd && <Modal onClick={toggleAdd} />}
+            {showAdd && <GroupGoalsAdd toggleAdd={toggleAdd} groupId={id}/>}
+        </>
+    )
+}
