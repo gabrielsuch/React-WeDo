@@ -22,7 +22,7 @@ export const HabitsAdd = ({ toggleAdd }) => {
     resolver: yupResolver(createHabitSchema)
   })
 
-  const handleAddHabit = (data) => {
+  const onSubmit = (data: any) => {
     addHabit(data);
     toggleAdd();
   };
@@ -31,7 +31,7 @@ export const HabitsAdd = ({ toggleAdd }) => {
     <Container>
       <h2>Adicionar hábito</h2>
 
-      <form onSubmit={handleSubmit(handleAddHabit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <section className="inputs">
           <Input
             register={register}

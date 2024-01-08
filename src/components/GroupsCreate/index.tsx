@@ -32,7 +32,7 @@ export const GroupsCreate = ({ setModal }) => {
   const { access } = useAuth();
   console.log(access);
 
-  const formValue = (data) => {
+  const onSubmit = (data: any) => {
     api
       .post(`groups/`, data, {
         headers: { Authorization: `Bearer ${access}` },
@@ -46,7 +46,7 @@ export const GroupsCreate = ({ setModal }) => {
   return (
     <>
       <Modal onClick={lastTest} />
-      <Container onSubmit={handleSubmit(formValue)}>
+      <Container onSubmit={handleSubmit(onSubmit)}>
         <h2>Adicionar Grupo</h2>
         <section className="raiva">
           <Input

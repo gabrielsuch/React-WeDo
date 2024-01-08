@@ -28,13 +28,13 @@ export const Login = () => {
 
     const {signIn} = useAuth()
 
-    const formValue = async (data: TLogin) => {
+    const onSubmit = async (data: TLogin) => {
         await signIn(data)
     }
 
     return (
         <Container>
-            <Form onSubmit={handleSubmit(formValue)}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <Input placeholder="Username" register={register} name="username" errors={errors}/>
                 <InputPassword placeholder="Senha" register={register} name="password" errors={errors}/>
                 <Button type="submit">Login</Button>

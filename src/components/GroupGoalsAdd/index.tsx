@@ -22,14 +22,14 @@ export const GroupGoalsAdd = ({ toggleAdd, groupId }) => {
     resolver: yupResolver(createGoalSchema),
   });
 
-  const handleAddGoal = (data) => {
+  const onSubmit = (data: any) => {
     addGoal(data, groupId, toggleAdd);
   };
 
   return (
     <Container>
       <h2>Adicionar meta</h2>
-      <form onSubmit={handleSubmit(handleAddGoal)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <section className="inputs">
           <Input
             register={register}

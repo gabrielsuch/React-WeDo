@@ -34,7 +34,7 @@ export const HeaderProfileEdit = ({ toggleEdit }) => {
     resolver: yupResolver(updateUserSchema)
   })
 
-  const userEdit = (data) => {
+  const onSubmit = (data: any) => {
     handleUserEdit(data, toggleEdit);
   };
 
@@ -52,7 +52,7 @@ export const HeaderProfileEdit = ({ toggleEdit }) => {
             <h2>Editar perfil</h2>
           </HeaderModal>
           <MainModal>
-            <Form onSubmit={handleSubmit(userEdit)}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
               <FixForm>
                 <Input
                   register={register}

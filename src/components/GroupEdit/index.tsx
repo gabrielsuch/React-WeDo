@@ -48,7 +48,7 @@ export const GroupEdit = ({ setModal }) => {
       .catch((err) => console.log(err));
   }, []);
 
-  const formValue = (data) => {
+  const onSubmit = (data: any) => {
     api
       .patch(`groups/${id}/`, data, {
         headers: { Authorization: `Bearer ${access}` },
@@ -63,7 +63,7 @@ export const GroupEdit = ({ setModal }) => {
   return (
     <>
       <Modal onClick={lastTest} />
-      <Container onSubmit={handleSubmit(formValue)}>
+      <Container onSubmit={handleSubmit(onSubmit)}>
         <h2>Editar Grupo</h2>
         <section className="happy">
           <Input

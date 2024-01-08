@@ -24,7 +24,7 @@ export const HabitsEdit = ({ id, showEdit, toggleEdit }) => {
     resolver: yupResolver(updateHabitSchema)
   })
 
-  const handleUpdate = (data) => {
+  const onSubmit = (data: any) => {
     updateHabit(id, data);
     toggleEdit();
   };
@@ -41,7 +41,7 @@ export const HabitsEdit = ({ id, showEdit, toggleEdit }) => {
   return (
     <Container>
       <h2>Editar Hábito</h2>
-      <form onSubmit={handleSubmit(handleUpdate)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <section className="inputs">
           <Input
             register={register}

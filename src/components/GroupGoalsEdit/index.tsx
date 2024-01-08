@@ -34,14 +34,14 @@ export const GroupGoalsEdit = ({
     getGoal(goalId, reset);
   }, []);
 
-  const handleEditGoal = (data) => {
+  const onSubmit = (data: any) => {
     updateGoal(data, goalId, groupId, toggleEdit);
   };
 
   return (
     <Container>
       <h2>Editar meta</h2>
-      <form onSubmit={handleSubmit(handleEditGoal)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <section className="inputs">
           <Input
             isEmpty={false}

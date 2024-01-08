@@ -25,7 +25,7 @@ export const ActivityEdit = ({ setOpenModalEdit, id }) => {
     resolver: yupResolver(updateActivitySchema)
   })
 
-  const handleEditActivity = (data) => {
+  const onSubmit = (data: any) => {
     updateActivity(id, data, setOpenModalEdit);
     setOpenModalEdit(false);
   };
@@ -39,7 +39,7 @@ export const ActivityEdit = ({ setOpenModalEdit, id }) => {
       <Modal onClick={() => setOpenModalEdit(false)} />
       <Container>
         <h2>Editar Atividade</h2>
-        <form onSubmit={handleSubmit(handleEditActivity)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <section className="inputs">
             <Input
               register={register}

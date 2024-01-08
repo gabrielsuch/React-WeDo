@@ -35,7 +35,7 @@ export const ActivityAdd = ({ setOpenModal }) => {
     reset({ realization_time: formattedDate(new Date()) });
   });
 
-  const handleAddActivity = (data) => {
+  const onSubmit = (data: any) => {
     addActivity(data, params.id);
     setOpenModal(false);
   };
@@ -45,7 +45,7 @@ export const ActivityAdd = ({ setOpenModal }) => {
       <Modal onClick={() => setOpenModal(false)} />
       <Container>
         <h2>Adicionar Atividade</h2>
-        <form onSubmit={handleSubmit(handleAddActivity)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <section className="inputs">
             <Input
               register={register}

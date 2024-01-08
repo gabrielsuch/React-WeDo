@@ -27,7 +27,7 @@ export const Signup = () => {
         resolver: yupResolver(createUserSchema)
     })
 
-    const sendRegister = (data: any) => {
+    const onSubmit = (data: any) => {
         const newData = {
             username: data.username,
             email: data.email,
@@ -55,7 +55,7 @@ export const Signup = () => {
                 <RightSide>
                     <Box>
                         <CenterForm>
-                            <Form onSubmit={handleSubmit(sendRegister)}>
+                            <Form onSubmit={handleSubmit(onSubmit)}>
                                 <Input placeholder="Username" register={register} name="username" errors={errors}/>
                                 <Input placeholder="Email" register={register} name="email" errors={errors}/>
                                 <InputPassword placeholder="Senha" register={register} name="password" errors={errors}/>
