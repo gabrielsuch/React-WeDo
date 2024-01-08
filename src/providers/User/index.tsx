@@ -63,7 +63,7 @@ export const UserProvider = ({children}: ChildrenProps) => {
 
     return (
         <UserContext.Provider value={{userInfo, getUserInfo, handleUserEdit}}>
-        {children}
+            {children}
         </UserContext.Provider>
     )
 }

@@ -124,8 +124,8 @@ export const HabitsProvider = ({children}: ChildrenProps) => {
     }
 
     return (
-        <HabitsContext.Provider value={{habits, hasHabits, loadHabits, updateHabit, deleteHabit, habitEditInfo, addHabit,}}>
-        {children}
+        <HabitsContext.Provider value={{habits, hasHabits, loadHabits, updateHabit, deleteHabit, habitEditInfo, addHabit}}>
+            {children}
         </HabitsContext.Provider>
     )
 }

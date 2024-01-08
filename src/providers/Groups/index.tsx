@@ -122,7 +122,7 @@ export const GroupProvider = ({children}: ChildrenProps) => {
 
     return (
         <GroupContext.Provider value={{myGroups, hasMyGroups, loadMyGroups, loadGroup, specifiGroup, akuma, subOn, subOff, checkUserInGroup, isUserInGroup}}>
-        {children}
+            {children}
         </GroupContext.Provider>
     )
 }
