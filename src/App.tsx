@@ -9,8 +9,8 @@ import "react-toastify/dist/ReactToastify.css"
 const App = () => {
   return (
     <>
-      <Routes />
-      <GlobalStyle />
+      <Routes/>
+      <GlobalStyle/>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -22,7 +22,7 @@ const App = () => {
         draggable
         pauseOnHover
       />
-      <ToastContainer />
+      <ToastContainer/>
     </>
   )
 }

@@ -8,7 +8,7 @@ export const createUserSchema = yup.object({}).shape({
     confirmPassword: yup.string().required("Campo obrigatório").oneOf([yup.ref("password")], "As senhas devem ser iguais"),
 })
 
-export const editUserSchema = yup.object({}).shape({
+export const updateUserSchema = yup.object({}).shape({
     username: yup.string().required("Campo obrigatório"),
     email: yup.string().required("Campo obrigatório").email("Email inválido")
 })

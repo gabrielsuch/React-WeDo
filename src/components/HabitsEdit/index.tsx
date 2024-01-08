@@ -9,7 +9,7 @@ import { useHabits } from '../../providers/Habits';
 import { Input, InputRadio, InputRadioContainer } from '../Input';
 import { Button } from '../Button';
 
-import {editHabitSchema} from "../../schemas/habits.schema"
+import {updateHabitSchema} from "../../schemas/habits.schema"
 
 
 export const HabitsEdit = ({ id, showEdit, toggleEdit }) => {
@@ -21,7 +21,7 @@ export const HabitsEdit = ({ id, showEdit, toggleEdit }) => {
     formState: { errors },
     reset,
   } = useForm({
-    resolver: yupResolver(editHabitSchema)
+    resolver: yupResolver(updateHabitSchema)
   })
 
   const handleUpdate = (data) => {

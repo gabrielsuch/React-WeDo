@@ -9,7 +9,7 @@ import { useGoals } from '../../providers/Goals';
 import { Input, InputRadio, InputRadioContainer } from '../Input';
 import { Button } from '../Button';
 
-import {editGoalSchema} from "../../schemas/goal.schema"
+import {updateGoalSchema} from "../../schemas/goal.schema"
 
 
 export const GroupGoalsEdit = ({
@@ -27,7 +27,7 @@ export const GroupGoalsEdit = ({
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(editGoalSchema)
+    resolver: yupResolver(updateGoalSchema)
   });
 
   useEffect(() => {

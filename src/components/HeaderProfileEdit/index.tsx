@@ -17,7 +17,7 @@ import {
   FixForm,
 } from './style';
 
-import {editUserSchema} from "../../schemas/user.schema"
+import {updateUserSchema} from "../../schemas/user.schema"
 
 
 export const HeaderProfileEdit = ({ toggleEdit }) => {
@@ -31,7 +31,7 @@ export const HeaderProfileEdit = ({ toggleEdit }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(editUserSchema)
+    resolver: yupResolver(updateUserSchema)
   })
 
   const userEdit = (data) => {

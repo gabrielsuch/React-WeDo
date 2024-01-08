@@ -14,9 +14,7 @@ import { Input } from "../Input";
 import { Button } from "../Button";
 import { Modal } from "../Modal";
 
-import { groupEditValidation } from './Validation';
-
-import {editGroupSchema} from "../../schemas/group.schema"
+import {updateGroupSchema} from "../../schemas/group.schema"
 
 
 export const GroupEdit = ({ setModal }) => {
@@ -30,7 +28,7 @@ export const GroupEdit = ({ setModal }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(editGroupSchema),
+    resolver: yupResolver(updateGroupSchema),
   });
 
   const { access } = useAuth();

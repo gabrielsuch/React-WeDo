@@ -8,7 +8,7 @@ export const createGroupSchema = yup.object({}).shape({
 })
 
 
-export const editGroupSchema = yup.object({}).shape({
+export const updateGroupSchema = yup.object({}).shape({
     name: yup.string().required("Campo Obrigatório"),
     description: yup.string().required("Campo Obrigatório"),
     category: yup.string().required("Campo Obrigatório")

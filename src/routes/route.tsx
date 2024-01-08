@@ -1,20 +1,21 @@
-import { Redirect, Route as ReactDOMRoute } from 'react-router';
+import {Redirect, Route as ReactDOMRoute} from "react-router"
 
-import { useAuth } from '../providers/Auth';
+import {useAuth} from "../providers/Auth/index"
+
 
 export const Route = ({ isPrivate = false, component: Component, ...rest }) => {
-  const { access } = useAuth();
+    const {access} = useAuth()
 
-  return (
-    <ReactDOMRoute
-      {...rest}
-      render={() => {
-        return isPrivate === !!access ? (
-          <Component />
-        ) : (
-          <Redirect to={isPrivate ? '/' : 'dashboard'} />
-        );
-      }}
-    />
-  );
-};
+    return (
+        <ReactDOMRoute
+        {...rest}
+        render={() => {
+            return isPrivate === !!access ? (
+            <Component />
+            ) : (
+            <Redirect to={isPrivate ? "/" : "dashboard"} />
+            )
+        }}
+        />
+    )
+}

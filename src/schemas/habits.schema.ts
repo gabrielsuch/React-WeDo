@@ -8,7 +8,7 @@ export const createHabitSchema = yup.object({}).shape({
     difficulty: yup.string().required("Campo Obrigatório").nullable()
 })
 
-export const editHabitSchema = yup.object({}).shape({
+export const updateHabitSchema = yup.object({}).shape({
     title: yup.string().required('Campo Obrigatório'),
     category: yup.string().required('Campo Obrigatório'),
     frequency: yup.string().required('Campo Obrigatório').nullable(),

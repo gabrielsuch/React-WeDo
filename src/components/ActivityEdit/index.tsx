@@ -10,7 +10,7 @@ import { Modal } from '../Modal';
 import { Input } from '../Input';
 import { Button } from '../Button';
 
-import {editActivitySchema} from "../../schemas/activity.schema"
+import {updateActivitySchema} from "../../schemas/activity.schema"
 
 
 export const ActivityEdit = ({ setOpenModalEdit, id }) => {
@@ -22,7 +22,7 @@ export const ActivityEdit = ({ setOpenModalEdit, id }) => {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(editActivitySchema)
+    resolver: yupResolver(updateActivitySchema)
   })
 
   const handleEditActivity = (data) => {

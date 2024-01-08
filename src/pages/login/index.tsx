@@ -1,23 +1,26 @@
-import { useHistory } from 'react-router';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { Container, Form } from "./styles"
 
-import { useAuth } from '../../providers/Auth';
+import { useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
 
-import { Input, InputPassword } from '../../components/Input';
-import { Button } from '../../components/Button';
 
-import logoLogin from '../../assets/logoLogin.png';
-import flowersLogin from '../../assets/flowersLogin.png';
-import { AlreadyRegistered } from '../signup/style';
-import { Container, Form } from './styles';
+import { Input, InputPassword } from "../../components/Input"
+import { Button } from "../../components/Button"
+
+import {useNavigate} from "react-router-dom"
+
+import logoLogin from "../../assets/logoLogin.png"
+import flowersLogin from "../../assets/flowersLogin.png"
+import { AlreadyRegistered } from "../signup/style"
 
 import {loginSchema} from "../../schemas/user.schema"
+
+import { useAuth } from "../../providers/Auth"
 
 
 export const Login = () => {
 
-  const history = useHistory();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -25,13 +28,13 @@ export const Login = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(loginSchema),
-  });
+  })
 
-  const { signIn } = useAuth();
+  const { signIn } = useAuth()
 
   const formValue = (data) => {
-    signIn(data);
-  };
+    signIn(data)
+  }
 
   return (
     <Container>
@@ -51,11 +54,11 @@ export const Login = () => {
         <Button type="submit">Login</Button>
         <AlreadyRegistered>
           <p className="font__body">
-            Não possui uma conta?{' '}
+            Não possui uma conta?{" "}
             <span
               className="span-redirect"
               onClick={() => {
-                history.push('/signup');
+                navigate("/signup")
               }}
             >
               Cadastre-se
@@ -66,5 +69,5 @@ export const Login = () => {
       </Form>
       <img className="image" src={logoLogin} alt="yoga" />
     </Container>
-  );
-};
+  )
+}
