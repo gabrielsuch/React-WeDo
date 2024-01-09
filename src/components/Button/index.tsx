@@ -2,7 +2,6 @@ import {Container, ContainerIcon} from "./style"
 
 import {FiPlus, FiCheck, FiEdit, FiArrowUpRight} from "react-icons/fi"
 
-
 export const Button = ({children, secondary, ...rest}: any) => {
     return (
         <Container secondary={secondary} {...rest}>

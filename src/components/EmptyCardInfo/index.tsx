@@ -4,7 +4,6 @@ import NoHabits from "../../assets/no-habits.png"
 import NoActivity from "../../assets/no-activity.png"
 import NoUsers from "../../assets/no-users.png"
 
-
 export const EmptyCardInfo = ({habits, goals, activity, user}: any) => {
     return (
         <Container habits={habits} goals={goals} activity={activity} user={user}>

@@ -4,14 +4,13 @@ import {Header} from "../../components/Header"
 import {HabitsContainer} from "../../components/HabitsContainer"
 import {GroupsContainer} from "../../components/GroupsContainer"
 
-
 export const Dashboard = () => {
     return (
         <>
-            <Header/>
+            <Header />
             <Main>
-                <HabitsContainer/>
-                <GroupsContainer/>
+                <HabitsContainer />
+                <GroupsContainer />
             </Main>
         </>
     )

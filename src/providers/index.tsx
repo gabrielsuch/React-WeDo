@@ -7,11 +7,9 @@ import {UserProvider} from "./User/index"
 import {ActivitiesProvider} from "./Activities/index"
 import {GoalsProvider} from "./Goals/index"
 
-
 interface ChildrenProps {
     children: ReactNode
 }
-
 
 export const Providers = ({children}: ChildrenProps) => {
     return (
@@ -20,9 +18,7 @@ export const Providers = ({children}: ChildrenProps) => {
                 <GroupProvider>
                     <ActivitiesProvider>
                         <UserProvider>
-                            <GoalsProvider>
-                                {children}
-                            </GoalsProvider>
+                            <GoalsProvider>{children}</GoalsProvider>
                         </UserProvider>
                     </ActivitiesProvider>
                 </GroupProvider>

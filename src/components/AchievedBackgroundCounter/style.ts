@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-
 export const Container = styled.section`
     @keyframes fill {
         from {
@@ -42,23 +41,20 @@ export const Container = styled.section`
             transform: translateY(100%) rotate(0deg);
             animation: fill 7s ease-in-out infinite;
             top: calc(100% - 50%);
-            top: ${({ timesAchieved, maxTimes }) =>
-                `calc(100% - ${(timesAchieved * 100) / maxTimes}%)`};
+            top: ${({timesAchieved, maxTimes}) => `calc(100% - ${(timesAchieved * 100) / maxTimes}%)`};
             right: -25%;
         }
 
         ::after {
             animation: fill 7s ease-in-out infinite 0.25s;
             top: calc(100% - 50%);
-            top: ${({ timesAchieved, maxTimes }) =>
-                `calc(100% - ${(timesAchieved * 100) / maxTimes}%)`};
+            top: ${({timesAchieved, maxTimes}) => `calc(100% - ${(timesAchieved * 100) / maxTimes}%)`};
             left: -25%;
         }
 
         div.graph__green {
             background-color: var(--color-utility-success);
-            height: ${({ timesAchieved, maxTimes }) =>
-                `calc(${(timesAchieved * 100) / maxTimes}%)`};
+            height: ${({timesAchieved, maxTimes}) => `calc(${(timesAchieved * 100) / maxTimes}%)`};
             transition: 0.3s;
         }
 

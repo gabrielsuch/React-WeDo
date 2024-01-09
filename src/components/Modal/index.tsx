@@ -1,5 +1,5 @@
-import { ContainerModal } from './style';
+import {ContainerModal} from "./style"
 
-export const Modal = ({ ...rest }) => {
-  return <ContainerModal {...rest} />;
-};
+export const Modal = ({...rest}) => {
+    return <ContainerModal {...rest} />
+}

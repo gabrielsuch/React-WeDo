@@ -1,6 +1,5 @@
 import styled, {css} from "styled-components"
 
-
 export const Container = styled.section`
     display: flex;
     flex-direction: column;
@@ -85,8 +84,7 @@ export const Container = styled.section`
             footer.goals__container {
                 justify-content: space-between;
             }
-        `
-    }
+        `}
 
     @media screen and (min-width: 500px) {
         footer.goals__container {

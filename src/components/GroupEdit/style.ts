@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-
 export const Container = styled.form`
     width: 308px;
     background: var(--color-white-dark);

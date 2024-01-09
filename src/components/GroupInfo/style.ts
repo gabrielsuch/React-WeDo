@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 import imageInfo from "../../assets/ImageInfo.png"
 
-
 export const Container = styled.div`
     display: flex;
     flex-direction: column;

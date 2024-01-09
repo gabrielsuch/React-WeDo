@@ -1,6 +1,5 @@
 import styled, {css} from "styled-components"
 
-
 export const Container = styled.section`
     display: flex;
     flex-direction: column;
@@ -135,8 +134,7 @@ export const Container = styled.section`
                 }
                 }
             }
-        `
-    }
+        `}
 
     ${({isUserInGroup, open}) =>
         !isUserInGroup &&
@@ -167,8 +165,7 @@ export const Container = styled.section`
                     }
                 }
             }
-        `
-    }
+        `}
 
     ${({achieved}) =>
         achieved &&
@@ -188,6 +185,5 @@ export const Container = styled.section`
                     }
                 }
             }
-        `
-    }
+        `}
 `

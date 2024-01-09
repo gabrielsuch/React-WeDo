@@ -13,7 +13,6 @@ import {GroupUserContainer} from "../../components/GroupUserContainer"
 
 import {useGroup} from "../../providers/Groups"
 
-
 export const GroupContent = ({selectedOption, setSelectedOption}: any) => {
     const showInfo = selectedOption === "Info"
     const showGoals = selectedOption === "Metas"
@@ -36,10 +35,10 @@ export const GroupContent = ({selectedOption, setSelectedOption}: any) => {
             <GroupTitle>
                 <h2>{name}</h2>
                 <div className="category">
-                <p>{category}</p>
+                    <p>{category}</p>
                 </div>
             </GroupTitle>
-            <GroupMenu selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
+            <GroupMenu selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
             <main className="groupContent__container">
                 {showInfo && <GroupInfo specifiGroup={specifiGroup} />}
                 {showGoals && <GroupGoals specifiGroup={specifiGroup} />}
@@ -47,11 +46,7 @@ export const GroupContent = ({selectedOption, setSelectedOption}: any) => {
                 {showUsers && <GroupUserContainer specifiGroup={specifiGroup} />}
             </main>
             <Footer>
-                {akuma ? (
-                    <Button onClick={() => subOn(Number(id))}>Inscrever-se</Button>
-                ) : (
-                    <Button onClick={() => subOff(Number(id))}>Desinscrever</Button>
-                )}
+                {akuma ? <Button onClick={() => subOn(Number(id))}>Inscrever-se</Button> : <Button onClick={() => subOff(Number(id))}>Desinscrever</Button>}
 
                 <Button onClick={() => navigate("/groups")}>Voltar</Button>
             </Footer>

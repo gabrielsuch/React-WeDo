@@ -2,7 +2,6 @@ import styled, {css} from "styled-components"
 
 import NoGoals from "../../assets/no-goals.png"
 
-
 export const Container = styled.section`
     display: flex;
     flex-direction: column;
@@ -26,8 +25,7 @@ export const Container = styled.section`
         habits &&
         css`
             margin-top: 104px;
-        `
-    }
+        `}
 
     ${({goals}) =>
         goals &&
@@ -40,8 +38,7 @@ export const Container = styled.section`
                 background-size: contain;
                 background-image: url(${NoGoals});
             }
-        `
-    }
+        `}
 
     ${({activity}) =>
         activity &&
@@ -50,8 +47,7 @@ export const Container = styled.section`
                 margin-bottom: 8px;
                 height: 360px;
             }
-        `
-    }
+        `}
 
     ${({user}) =>
         user &&
@@ -59,6 +55,5 @@ export const Container = styled.section`
             p {
                 margin-bottom: 46px;
             }
-        `
-    }
+        `}
 `

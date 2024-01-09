@@ -16,18 +16,27 @@ import {formattedDate} from "../Input/Utility/formatter"
 
 import {useActivities} from "../../providers/Activities"
 
-
 export const ActivityAdd = ({setOpenModal}) => {
     const params = useParams()
 
     const {addActivity} = useActivities()
 
-    const {register, handleSubmit, reset, formState: {errors}} = useForm({
-        resolver: yupResolver(createActivitySchema),
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: {errors}
+    } = useForm({
+        resolver: yupResolver(createActivitySchema)
     })
 
+    const obj = {
+        user: "test",
+        email: "test"
+    }
+
     useState(() => {
-        reset({ realization_time: formattedDate(new Date()) })
+        reset({realization_time: formattedDate(new Date())})
     })
 
     const onSubmit = (data: any) => {
@@ -42,8 +51,8 @@ export const ActivityAdd = ({setOpenModal}) => {
                 <h2>Adicionar Atividade</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <section className="inputs">
-                        <Input register={register} errors={errors} name="title" placeholder="Título"/>
-                        <Input maxLength={10} maskInput fillInput date isEmpty={false} register={register} errors={errors} name="realization_time" placeholder="Data"/>
+                        <Input register={register} errors={errors} name="title" placeholder="Título" />
+                        <Input maxLength={10} maskInput fillInput date isEmpty={false} register={register} errors={errors} name="realization_time" placeholder="Data" />
                     </section>
                     <Button type="submit">Adicionar</Button>
                 </form>

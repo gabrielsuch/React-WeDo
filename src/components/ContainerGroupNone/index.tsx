@@ -1,6 +1,5 @@
 import {Container} from "./style"
 
-
 export const ContainerGroupNone = () => {
     return (
         <Container>

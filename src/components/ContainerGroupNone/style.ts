@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-
 export const Container = styled.div`
     color: var(--color-black-light);
     font-size: var(--font-size-h2);

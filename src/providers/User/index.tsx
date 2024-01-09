@@ -6,7 +6,6 @@ import {api} from "../../services/api"
 
 import {useAuth} from "../Auth/index"
 
-
 interface ChildrenProps {
     children: ReactNode
 }
@@ -16,7 +15,6 @@ interface ContextData {
     getUserInfo: () => Promise<void>
     handleUserEdit: (data: any, toggleEdit: any) => Promise<void>
 }
-
 
 const UserContext = createContext({} as ContextData)
 
@@ -30,31 +28,34 @@ export const UserProvider = ({children}: ChildrenProps) => {
             const response = await api.get(`/users/${user.user_id}/`)
 
             setUserInfo(response.data)
-            
-        } catch(err) {
+        } catch (err) {
             console.error(err)
         }
     }
 
-    const handleUserEdit = async (data: any, toggleEdit: any): Promise<void> => {
+    const handleUserEdit = async (
+        data: any,
+        toggleEdit: any
+    ): Promise<void> => {
         try {
             await api.patch(`/users/${user.user_id}/`, data, {
-                headers: { 
-                    Authorization: `Bearer ${access}` 
+                headers: {
+                    Authorization: `Bearer ${access}`
                 }
             })
 
             toggleEdit()
 
             toast.success("Perfil atualizado!")
-
-        } catch(err) {
+        } catch (err) {
             console.error(err)
 
-            const { username } = err.response.data
+            const {username} = err.response.data
 
-            if(!!username) {
-                toast.error("Um usuário com esse username já existe! Por favor, escolha outro!")
+            if (!!username) {
+                toast.error(
+                    "Um usuário com esse username já existe! Por favor, escolha outro!"
+                )
             } else {
                 toast.error("Não foi possível atualizar o perfil")
             }

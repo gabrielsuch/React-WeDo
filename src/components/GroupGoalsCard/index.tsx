@@ -12,7 +12,6 @@ import {Modal} from "../Modal/index"
 import {useGoals} from "../../providers/Goals/index"
 import {useGroup} from "../../providers/Groups/index"
 
-
 export const GroupGoalsCard = ({goal, open}: any) => {
     const [showCard, setShowCard] = useState<boolean>(false)
     const [showEdit, setShowEdit] = useState<boolean>(false)
@@ -21,9 +20,7 @@ export const GroupGoalsCard = ({goal, open}: any) => {
     const {isUserInGroup} = useGroup()
     const {updateGoal, goal: goalContext, removeGoal} = useGoals()
 
-    const {id, title, difficulty, achieved, how_much_achieved, group} = open
-        ? goalContext
-        : goal
+    const {id, title, difficulty, achieved, how_much_achieved, group} = open ? goalContext : goal
 
     const toggleCard = () => {
         setShowCard(!showCard)
@@ -53,7 +50,7 @@ export const GroupGoalsCard = ({goal, open}: any) => {
     const maxTimesToAchieve = 10
 
     const completeGoals = () => {
-        const data = { achieved, how_much_achieved }
+        const data = {achieved, how_much_achieved}
         data.how_much_achieved += 1
 
         if (data.how_much_achieved >= maxTimesToAchieve) {
@@ -72,13 +69,10 @@ export const GroupGoalsCard = ({goal, open}: any) => {
                 {open && (
                     <main className="groupGoalsCard__container">
                         <section>
-                        <p className="content__title">Dificuldade</p>
-                        <p className="content__value">{difficulty}</p>
+                            <p className="content__title">Dificuldade</p>
+                            <p className="content__value">{difficulty}</p>
                         </section>
-                        <AchievedBackgroundCounter
-                        achievedCount={how_much_achieved}
-                        maxTimes={maxTimesToAchieve}
-                        />
+                        <AchievedBackgroundCounter achievedCount={how_much_achieved} maxTimes={maxTimesToAchieve} />
                         <Button onClick={() => completeGoals()}>Realizar tarefa</Button>
                     </main>
                 )}
@@ -86,18 +80,14 @@ export const GroupGoalsCard = ({goal, open}: any) => {
                     <section>
                         <p className="font__body">{achieved ? "Completo" : "Incompleto"}</p>
                     </section>
-                    <IconButton onClick={handleCardClick} card primaryColor edit={open} arrowUp={!open}/>
+                    <IconButton onClick={handleCardClick} card primaryColor edit={open} arrowUp={!open} />
                 </footer>
             </Container>
-            {(showCard || showEdit) && <Modal onClick={handleCardClick}/>}
-            {showCard && <GroupGoalsCardModal goalId={id} groupId={group}/>}
-            {showEdit && (
-                <GroupGoalsEdit goalId={id} groupId={group} toggleEdit={toggleEdit} toggleShowDelete={toggleShowDelete}/>
-            )}
+            {(showCard || showEdit) && <Modal onClick={handleCardClick} />}
+            {showCard && <GroupGoalsCardModal goalId={id} groupId={group} />}
+            {showEdit && <GroupGoalsEdit goalId={id} groupId={group} toggleEdit={toggleEdit} toggleShowDelete={toggleShowDelete} />}
             {showDelete && <Modal onClick={toggleShowDelete} />}
-            {showDelete && (
-                <DeleteConfirmation toggleShowDelete={toggleShowDelete} deleteFunction={handleDelete}/>
-            )}
+            {showDelete && <DeleteConfirmation toggleShowDelete={toggleShowDelete} deleteFunction={handleDelete} />}
         </>
     )
 }

@@ -1,6 +1,5 @@
 import {createGlobalStyle} from "styled-components"
 
-
 export const GlobalStyle = createGlobalStyle`
     :root {
         /* COLORS */
@@ -120,4 +119,4 @@ export const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar-thumb:hover {
         background-color: var(--color-primary-dark);
     }
-`;
+`

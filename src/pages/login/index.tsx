@@ -17,12 +17,14 @@ import {TLogin} from "../../types/user.type"
 
 import {useAuth} from "../../providers/Auth"
 
-
 export const Login = () => {
-
     const navigate = useNavigate()
 
-    const {register, handleSubmit, formState: {errors}} = useForm<TLogin>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors}
+    } = useForm<TLogin>({
         resolver: yupResolver(loginSchema)
     })
 
@@ -35,25 +37,35 @@ export const Login = () => {
     return (
         <Container>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Input placeholder="Username" register={register} name="username" errors={errors}/>
-                <InputPassword placeholder="Senha" register={register} name="password" errors={errors}/>
+                <Input
+                    placeholder="Username"
+                    register={register}
+                    name="username"
+                    errors={errors}
+                />
+                <InputPassword
+                    placeholder="Senha"
+                    register={register}
+                    name="password"
+                    errors={errors}
+                />
                 <Button type="submit">Login</Button>
                 <AlreadyRegistered>
                     <p className="font__body">
                         Não possui uma conta?{" "}
                         <span
-                        className="span-redirect"
-                        onClick={() => {
-                            navigate("/signup")
-                        }}
+                            className="span-redirect"
+                            onClick={() => {
+                                navigate("/signup")
+                            }}
                         >
-                        Cadastre-se
+                            Cadastre-se
                         </span>
                     </p>
                 </AlreadyRegistered>
-                <img className="flower" src={flowersLogin} alt="flower"/>
+                <img className="flower" src={flowersLogin} alt="flower" />
             </Form>
-            <img className="image" src={logoLogin} alt="yoga"/>
+            <img className="image" src={logoLogin} alt="yoga" />
         </Container>
     )
 }

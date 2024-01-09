@@ -4,7 +4,6 @@ import {GroupGoalsCard} from "../GroupGoalsCard/index"
 
 import {useGoals} from "../../providers/Goals/index"
 
-
 export const GroupGoalsCardModal = ({goalId, groupId}: any) => {
     const {getGoal, goal} = useGoals()
 
@@ -12,9 +11,5 @@ export const GroupGoalsCardModal = ({goalId, groupId}: any) => {
         getGoal(goalId)
     }, [])
 
-    return (
-        <>
-            <GroupGoalsCard goal={goal} groupId={groupId} open/>
-        </>
-    )
+    return <GroupGoalsCard goal={goal} groupId={groupId} open />
 }

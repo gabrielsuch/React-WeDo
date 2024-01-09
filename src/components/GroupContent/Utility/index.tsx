@@ -2,12 +2,11 @@ import {useEffect, useState} from "react"
 
 import {Container} from "./style"
 
-
 export const TitleCounter = ({content, name}: any) => {
     const [isPlural, setIsPlural] = useState(false)
 
     useEffect(() => {
-        if(content) {
+        if (content) {
             setIsPlural(content.length > 1)
         }
     }, [content])

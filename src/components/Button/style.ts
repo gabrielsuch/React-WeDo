@@ -1,6 +1,5 @@
 import styled, {css} from "styled-components"
 
-
 export const Container = styled.button`
     outline: 0;
     border: 1px solid transparent;
@@ -35,8 +34,7 @@ export const Container = styled.button`
                 border-color: var(--color-secondary-light);
                 color: var(--color-white-light);
             }
-        `
-    }
+        `}
 `
 
 export const ContainerIcon = styled(Container)`
@@ -58,8 +56,7 @@ export const ContainerIcon = styled(Container)`
             width: 32px;
             height: 32px;
             border-radius: 0 0 10px 0;
-        `
-    }
+        `}
 
     ${({primaryColor}) =>
         primaryColor &&
@@ -71,6 +68,5 @@ export const ContainerIcon = styled(Container)`
                 background-color: var(--color-primary-light);
                 border-color: var(--color-primary-light);
             }
-        `
-    }
+        `}
 `

@@ -1,6 +1,5 @@
 import {Container} from "./style"
 
-
 export const AchievedBackgroundCounter = ({achievedCount, maxTimes = 100}) => {
     return (
         <Container timesAchieved={achievedCount} maxTimes={maxTimes}>

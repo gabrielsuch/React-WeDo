@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react"
 import {Div, Cabecalho, Footer} from "./style"
 
-
 import {useAuth} from "../../providers/Auth"
 import {api} from "../../services/api"
 
@@ -16,7 +15,6 @@ import {useNavigate} from "react-router-dom"
 
 import {Container} from "../../components/GroupsContainer/style"
 
-
 export const Groups = () => {
     const [groups, setGroups] = useState([])
     const [input, setInput] = useState("")
@@ -29,42 +27,65 @@ export const Groups = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        api
-        .get(`groups/?page=${page}`, {
-            headers: { Authorization: `Bearer ${access}` },
+        api.get(`groups/?page=${page}`, {
+            headers: {Authorization: `Bearer ${access}`}
         })
-        .then((response) => {
-            const newGroups = response.data.results
+            .then((response) => {
+                const newGroups = response.data.results
 
-            setGroups([...groups, ...newGroups])
-        })
-        .catch((err) => console.log(err))
+                setGroups([...groups, ...newGroups])
+            })
+            .catch((err) => console.log(err))
     }, [page])
 
     return (
         <>
-            <Header/>
+            <Header />
             <Div>
                 <Container className="container">
                     <Cabecalho>
                         <div className="flex">
                             <h2>Grupos</h2>
                         </div>
-                        <FindGroups placeholder="Pesquisar Grupos..." type="text" input={input} setInput={setInput} groupInput={groupInput} setGroupInput={setGroupInput}/>
+                        <FindGroups
+                            placeholder="Pesquisar Grupos..."
+                            type="text"
+                            input={input}
+                            setInput={setInput}
+                            groupInput={groupInput}
+                            setGroupInput={setGroupInput}
+                        />
                     </Cabecalho>
-                    {
-                        groups.length === 0 ? (
-                            <ContainerGroupNone />
-                        ) : (
-                            <RenderGroups groups={groups} setGroups={setGroups} groupInput={groupInput} input={input} page={page} setPage={setPage}/>
-                        )
-                    }
+                    {groups.length === 0 ? (
+                        <ContainerGroupNone />
+                    ) : (
+                        <RenderGroups
+                            groups={groups}
+                            setGroups={setGroups}
+                            groupInput={groupInput}
+                            input={input}
+                            page={page}
+                            setPage={setPage}
+                        />
+                    )}
                     <Footer>
-                        <Button secondary onClick={() => navigate("/dashboard")}>Voltar</Button>
-                        <Button className="redButtom" onClick={() => setModal(true)}>Criar Grupo</Button>
+                        <Button
+                            secondary
+                            onClick={() => navigate("/dashboard")}
+                        >
+                            Voltar
+                        </Button>
+                        <Button
+                            className="redButtom"
+                            onClick={() => setModal(true)}
+                        >
+                            Criar Grupo
+                        </Button>
                     </Footer>
                 </Container>
-                {modal ? <GroupsCreate modal={modal} setModal={setModal} /> : null}
+                {modal ? (
+                    <GroupsCreate modal={modal} setModal={setModal} />
+                ) : null}
             </Div>
         </>
     )

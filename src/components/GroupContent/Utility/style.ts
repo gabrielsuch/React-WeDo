@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-
 export const Container = styled.section`
     p {
         font-size: var(--font-size-h3);

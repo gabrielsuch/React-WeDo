@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-
 export const Main = styled.div`
     max-width: 1200px;
     margin: auto;
@@ -120,7 +119,6 @@ export const Options = styled.div`
     Button:nth-child(4) {
         border-top-right-radius: 5px;
     }
-
 `
 
 export const GroupInfos = styled.div`

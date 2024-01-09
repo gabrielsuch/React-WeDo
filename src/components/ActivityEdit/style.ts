@@ -31,7 +31,7 @@ export const Container = styled.div`
         button:nth-child(2) {
             margin-top: 16px;
         }
-        button{
+        button {
             margin-top: 8px;
         }
     }

@@ -10,7 +10,6 @@ import {formattedDate} from "../Input/Utility/formatter"
 
 import {Card} from "./style"
 
-
 export const ActivityCard = ({cardActivity}) => {
     const {akuma} = useGroup()
     const [openModalEdit, setOpenModalEdit] = useState(false)
@@ -31,19 +30,13 @@ export const ActivityCard = ({cardActivity}) => {
                     </p>
                     <p>{newDate}</p>
                 </div>
-                {
-                    !akuma && (
-                        <div className="icon">
-                            <IconButton primaryColor arrowUp card onClick={() => setOpenModalEdit(true)}/>
-                        </div>
-                    )
-                }
+                {!akuma && (
+                    <div className="icon">
+                        <IconButton primaryColor arrowUp card onClick={() => setOpenModalEdit(true)} />
+                    </div>
+                )}
             </div>
-            {
-                openModalEdit && (
-                    <ActivityEdit setOpenModalEdit={setOpenModalEdit} id={id}/>
-                )
-            }
+            {openModalEdit && <ActivityEdit setOpenModalEdit={setOpenModalEdit} id={id} />}
         </Card>
     )
 }

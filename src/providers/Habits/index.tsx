@@ -5,7 +5,6 @@ import {api} from "../../services/api"
 
 import {useAuth} from "../Auth/index"
 
-
 interface ChildrenProps {
     children: ReactNode
 }
@@ -20,7 +19,6 @@ interface ContextData {
     addHabit: (data: any) => Promise<void>
 }
 
-
 const HabitsContext = createContext({} as ContextData)
 
 export const HabitsProvider = ({children}: ChildrenProps) => {
@@ -29,56 +27,56 @@ export const HabitsProvider = ({children}: ChildrenProps) => {
 
     const {access, user} = useAuth()
 
-
     const loadHabits = async (): Promise<void> => {
         try {
             const response = await api.get("habits/personal", {
-                headers: { 
-                    Authorization: `Bearer ${access}` 
+                headers: {
+                    Authorization: `Bearer ${access}`
                 }
             })
 
             const habits = response.data
             setHabits(habits)
             setHasHabits(!!habits.length)
-
-        } catch(err) {
+        } catch (err) {
             console.error(err)
         }
     }
 
-    const updateHabit = async (id: any, data: any, condition: any): Promise<void> => {
+    const updateHabit = async (
+        id: any,
+        data: any,
+        condition: any
+    ): Promise<void> => {
         try {
             await api.patch(`habits/${id}`, data, {
-                headers: { 
-                    Authorization: `Bearer ${access}` 
+                headers: {
+                    Authorization: `Bearer ${access}`
                 }
             })
 
             condition === "achieved"
-            ? toast.success("Hábito realizado!")
-            : toast.success("Hábito editado com sucesso!")
-            
-        } catch(err) {
+                ? toast.success("Hábito realizado!")
+                : toast.success("Hábito editado com sucesso!")
+        } catch (err) {
             console.error(err)
 
             condition === "achieved"
-            ? toast.error("Não foi possível realizar.")
-            : toast.error("Não foi possível editar.")
+                ? toast.error("Não foi possível realizar.")
+                : toast.error("Não foi possível editar.")
         }
     }
 
     const deleteHabit = async (id: any): Promise<void> => {
         try {
             await api.delete(`/habits/${id}`, {
-                headers: { 
-                    Authorization: `Bearer ${access}` 
+                headers: {
+                    Authorization: `Bearer ${access}`
                 }
             })
 
             toast.success("Hábito excluído!")
-
-        } catch(err) {
+        } catch (err) {
             console.error(err)
             toast.error("Não foi possível excluir")
         }
@@ -87,16 +85,15 @@ export const HabitsProvider = ({children}: ChildrenProps) => {
     const habitEditInfo = async (id: any, reset: any): Promise<void> => {
         try {
             const response = await api.get(`habits/${id}/`, {
-                headers: { 
-                    Authorization: `Bearer ${access}` 
+                headers: {
+                    Authorization: `Bearer ${access}`
                 }
             })
 
-            const { title, category, frequency, difficulty } = response.data
+            const {title, category, frequency, difficulty} = response.data
 
             reset({title, category, frequency, difficulty})
-
-        } catch(err) {
+        } catch (err) {
             console.error(err)
         }
     }
@@ -108,23 +105,32 @@ export const HabitsProvider = ({children}: ChildrenProps) => {
 
         try {
             const response = await api.post("habits/", data, {
-                headers: { 
-                    Authorization: `Bearer ${access}` 
+                headers: {
+                    Authorization: `Bearer ${access}`
                 }
             })
 
             setHabits([...habits, response.data])
 
             toast.success("Hábito criado!")
-            
-        } catch(err) {
+        } catch (err) {
             console.error(err)
             toast.error("Não foi possível criar um hábito")
         }
     }
 
     return (
-        <HabitsContext.Provider value={{habits, hasHabits, loadHabits, updateHabit, deleteHabit, habitEditInfo, addHabit}}>
+        <HabitsContext.Provider
+            value={{
+                habits,
+                hasHabits,
+                loadHabits,
+                updateHabit,
+                deleteHabit,
+                habitEditInfo,
+                addHabit
+            }}
+        >
             {children}
         </HabitsContext.Provider>
     )

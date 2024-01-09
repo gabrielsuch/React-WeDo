@@ -1,10 +1,9 @@
-import {useState, createContext, useContext , ReactNode} from "react"
+import {useState, createContext, useContext, ReactNode} from "react"
 import jwt_decode from "jwt-decode"
 import {toast} from "react-toastify"
 import {useHistory} from "react-router-dom"
 
 import {api} from "../../services/api"
-
 
 interface ChildrenProps {
     children: ReactNode
@@ -17,7 +16,6 @@ interface ContextData {
     signOut: () => void
 }
 
-
 export const AuthContext = createContext({} as ContextData)
 
 export const AuthProvider = ({children}: ChildrenProps) => {
@@ -25,9 +23,10 @@ export const AuthProvider = ({children}: ChildrenProps) => {
         const access = localStorage.getItem("@WeDo:access")
         const user = localStorage.getItem("@WeDo:user")
 
-        if(access && user) {
-            return { 
-                access, user: JSON.parse(user) 
+        if (access && user) {
+            return {
+                access,
+                user: JSON.parse(user)
             }
         }
 
@@ -51,8 +50,7 @@ export const AuthProvider = ({children}: ChildrenProps) => {
             history.push("/dashboard")
 
             toast.success("Login realizado com sucesso!")
-            
-        } catch(err) {
+        } catch (err) {
             console.error(err)
             toast.error("Email ou senha inválida")
         }
@@ -66,7 +64,9 @@ export const AuthProvider = ({children}: ChildrenProps) => {
     }
 
     return (
-        <AuthContext.Provider value={{access: data.access, user: data.user, signIn, signOut}}>
+        <AuthContext.Provider
+            value={{access: data.access, user: data.user, signIn, signOut}}
+        >
             {children}
         </AuthContext.Provider>
     )

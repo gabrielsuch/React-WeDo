@@ -1,4 +1,13 @@
-import {Container, LeftSide, RightSide, Box, CenterForm, Form, AlreadyRegistered, DivFlower} from "./style"
+import {
+    Container,
+    LeftSide,
+    RightSide,
+    Box,
+    CenterForm,
+    Form,
+    AlreadyRegistered,
+    DivFlower
+} from "./style"
 
 import {toast} from "react-toastify"
 
@@ -18,12 +27,14 @@ import Flowers from "../../assets/Flowers.png"
 import {createUserSchema} from "../../schemas/user.schema"
 import {TCreateUser} from "../../types/user.type"
 
-
 export const Signup = () => {
-
     const navigate = useNavigate()
 
-    const {register, handleSubmit, formState: { errors }} = useForm<TCreateUser>({
+    const {
+        register,
+        handleSubmit,
+        formState: {errors}
+    } = useForm<TCreateUser>({
         resolver: yupResolver(createUserSchema)
     })
 
@@ -33,17 +44,16 @@ export const Signup = () => {
             email: data.email,
             password: data.password
         }
-        
-        api
-        .post("/users/", newData)
-        .then((response) => {
-            toast.success("Conta Criada com Sucesso!")
-            navigate("/")
-        })
-        .catch((err) => {
-            toast.error("Erro ao Criar Conta!")
-            console.log(err)
-        })
+
+        api.post("/users/", newData)
+            .then((response) => {
+                toast.success("Conta Criada com Sucesso!")
+                navigate("/")
+            })
+            .catch((err) => {
+                toast.error("Erro ao Criar Conta!")
+                console.log(err)
+            })
     }
 
     return (
@@ -56,21 +66,43 @@ export const Signup = () => {
                     <Box>
                         <CenterForm>
                             <Form onSubmit={handleSubmit(onSubmit)}>
-                                <Input placeholder="Username" register={register} name="username" errors={errors}/>
-                                <Input placeholder="Email" register={register} name="email" errors={errors}/>
-                                <InputPassword placeholder="Senha" register={register} name="password" errors={errors}/>
-                                <InputPassword placeholder="Confirmar senha" register={register} name="confirmPassword" errors={errors}/>
+                                <Input
+                                    placeholder="Username"
+                                    register={register}
+                                    name="username"
+                                    errors={errors}
+                                />
+                                <Input
+                                    placeholder="Email"
+                                    register={register}
+                                    name="email"
+                                    errors={errors}
+                                />
+                                <InputPassword
+                                    placeholder="Senha"
+                                    register={register}
+                                    name="password"
+                                    errors={errors}
+                                />
+                                <InputPassword
+                                    placeholder="Confirmar senha"
+                                    register={register}
+                                    name="confirmPassword"
+                                    errors={errors}
+                                />
                                 <Button type="submit">Cadastrar</Button>
                                 <AlreadyRegistered>
-                                <p className="font__body">
-                                    Já possui uma conta?{" "}
-                                    <span onClick={() => navigate("/")}>Faça login</span>
-                                </p>
+                                    <p className="font__body">
+                                        Já possui uma conta?{" "}
+                                        <span onClick={() => navigate("/")}>
+                                            Faça login
+                                        </span>
+                                    </p>
                                 </AlreadyRegistered>
                             </Form>
                         </CenterForm>
                         <DivFlower>
-                            <img src={Flowers} alt="Flower"/>
+                            <img src={Flowers} alt="Flower" />
                         </DivFlower>
                     </Box>
                 </RightSide>

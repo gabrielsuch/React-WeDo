@@ -9,7 +9,6 @@ import {GroupEdit} from "../GroupEdit/index"
 import {useGroup} from "../../providers/Groups/index"
 import {useAuth} from "../../providers/Auth/index"
 
-
 export const GroupInfo = ({specifiGroup}: any) => {
     const {user} = useAuth()
     const {id} = useParams()
@@ -22,7 +21,7 @@ export const GroupInfo = ({specifiGroup}: any) => {
         loadGroup(id)
     }, [id])
 
-    const {description,users_on_group: lengthUser,goals,activities,creator} = specifiGroup
+    const {description, users_on_group: lengthUser, goals, activities, creator} = specifiGroup
 
     return (
         <Container>
@@ -45,7 +44,9 @@ export const GroupInfo = ({specifiGroup}: any) => {
                     {creator && creator.username}
                 </p>
                 {creator && creator.id === user.user_id ? (
-                    <Button onClick={() => setModal(true)} secondary>Editar</Button>
+                    <Button onClick={() => setModal(true)} secondary>
+                        Editar
+                    </Button>
                 ) : null}
             </footer>
             {modal ? <GroupEdit setModal={setModal} /> : null}

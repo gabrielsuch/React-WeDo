@@ -6,8 +6,10 @@ import {api} from "../../services/api"
 import {useAuth} from "../Auth/index"
 import {useGroup} from "../Groups/index"
 
-import {formattedDate, requisitionDate} from "../../components/Input/Utility/formatter"
-
+import {
+    formattedDate,
+    requisitionDate
+} from "../../components/Input/Utility/formatter"
 
 interface ChildrenProps {
     children: ReactNode
@@ -23,15 +25,14 @@ interface ContextData {
     setActivities: React.Dispatch<React.SetStateAction<any[]>>
 }
 
-
 const ActivitiesContext = createContext({} as ContextData)
 
 export const ActivitiesProvider = ({children}: ChildrenProps) => {
     const [activities, setActivities] = useState<any[]>([])
 
-    const { specifiGroup } = useGroup()
-    const { access } = useAuth()
-    
+    const {specifiGroup} = useGroup()
+    const {access} = useAuth()
+
     const groupId = specifiGroup.id
 
     const loadActivities = async (): Promise<void> => {
@@ -39,8 +40,7 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
             const response = await api.get(`activities/?group=${groupId}`)
 
             setActivities(response.data.results)
-            
-        } catch(err) {
+        } catch (err) {
             console.error(err)
         }
     }
@@ -48,7 +48,7 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
     const addActivity = async (data: any, groupId: any): Promise<void> => {
         data.group = groupId
 
-        const { realization_time } = data
+        const {realization_time} = data
 
         const newDate = requisitionDate(realization_time)
         data.realization_time = newDate
@@ -57,7 +57,7 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
 
         try {
             const response = await api.post("activities/", data, {
-                headers: { 
+                headers: {
                     Authorization: `Bearer ${access}`
                 }
             })
@@ -65,8 +65,7 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
             setActivities([...activities, response.data])
 
             toast.success("Atividade criada!")
-
-        } catch(err) {
+        } catch (err) {
             console.error(err)
             toast.error("Não foi possível criar a atividade")
         }
@@ -75,7 +74,7 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
     const deleteActivity = async (id: any): Promise<void> => {
         try {
             await api.delete(`activities/${id}`, {
-                headers: { 
+                headers: {
                     Authorization: `Bearer ${access}`
                 }
             })
@@ -84,15 +83,18 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
             loadActivities()
 
             toast.success("Atividade excluída!")
-
-        } catch(err) {
+        } catch (err) {
             console.error(err)
             toast.error("Erro na exclusão da atividade")
         }
     }
 
-    const updateActivity = async (id: any, data: any, setOpenModalEdit: any): Promise<void> => {
-        const { realization_time } = data
+    const updateActivity = async (
+        id: any,
+        data: any,
+        setOpenModalEdit: any
+    ): Promise<void> => {
+        const {realization_time} = data
         const [day, month, year] = realization_time.split("/")
         const newDateFormat = `${year}-${month}-${day}`
         const newDate = new Date(newDateFormat).toISOString()
@@ -110,8 +112,7 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
             loadActivities()
             setOpenModalEdit(false)
             toast.success("Atividade editada com sucesso")
-
-        } catch(err) {
+        } catch (err) {
             console.error(err)
             toast.error("Erro ao editar atividade")
         }
@@ -121,26 +122,35 @@ export const ActivitiesProvider = ({children}: ChildrenProps) => {
         try {
             const response = await api.get(`activities/${id}/`, {
                 headers: {
-                    Authorization: `Bearer ${access}` 
+                    Authorization: `Bearer ${access}`
                 }
             })
 
-            const { title, realization_time } = response.data
+            const {title, realization_time} = response.data
 
             const newDate = formattedDate(new Date(realization_time))
 
             reset({
-            title: title,
-            realization_time: newDate,
+                title: title,
+                realization_time: newDate
             })
-            
-        } catch(err) {
+        } catch (err) {
             console.error(err)
         }
     }
 
     return (
-        <ActivitiesContext.Provider value={{activities, addActivity, deleteActivity, setActivities, updateActivity, loadActivities, restoreInfos}}>
+        <ActivitiesContext.Provider
+            value={{
+                activities,
+                addActivity,
+                deleteActivity,
+                setActivities,
+                updateActivity,
+                loadActivities,
+                restoreInfos
+            }}
+        >
             {children}
         </ActivitiesContext.Provider>
     )

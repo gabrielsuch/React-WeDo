@@ -12,7 +12,6 @@ import {Button} from "../Button"
 
 import {updateActivitySchema} from "../../schemas/activity.schema"
 
-
 export const ActivityEdit = ({setOpenModalEdit, id}) => {
     const {deleteActivity, updateActivity, restoreInfos} = useActivities()
 
@@ -20,7 +19,7 @@ export const ActivityEdit = ({setOpenModalEdit, id}) => {
         register,
         handleSubmit,
         reset,
-        formState: {errors},
+        formState: {errors}
     } = useForm({
         resolver: yupResolver(updateActivitySchema)
     })
@@ -41,11 +40,13 @@ export const ActivityEdit = ({setOpenModalEdit, id}) => {
                 <h2>Editar Atividade</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <section className="inputs">
-                        <Input register={register} errors={errors} name="title" placeholder="Título" isEmpty={false}/>
-                        <Input maxLength={10} maskInput date isEmpty={false} register={register} errors={errors} name="realization_time" placeholder="Data"/>
+                        <Input register={register} errors={errors} name="title" placeholder="Título" isEmpty={false} />
+                        <Input maxLength={10} maskInput date isEmpty={false} register={register} errors={errors} name="realization_time" placeholder="Data" />
                     </section>
                     <Button type="submit">Atualizar</Button>
-                    <Button type="button" secondary onClick={() => deleteActivity(id)}>Deletar</Button>
+                    <Button type="button" secondary onClick={() => deleteActivity(id)}>
+                        Deletar
+                    </Button>
                 </form>
             </Container>
         </>
